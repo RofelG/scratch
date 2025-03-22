@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Card</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="button-container">
+        <% categories.forEach(function(category) { %>
+            <button class="btn" data-id="<%= category %>"><%= category %></button>
+        <% }); %>
+    </div>
+    <div class="scratch-container">
+        <div class="scratch-card">
+            <div class="scratch-card__overlay">
+            </div>
+            <div class="scratch-card__content">
+                <div class="scratch-card__code">1234 5678 9012 3456</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/index.js"></script>
+</body>
+</html>

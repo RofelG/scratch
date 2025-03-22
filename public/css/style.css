@@ -1,0 +1,47 @@
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+.scratch-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.scratch-container .scratch-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* Makes the element a circle */
+  overflow: hidden;
+}
+.scratch-container .scratch-card .scratch-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Positioned above the content */
+}
+.scratch-container .scratch-card .scratch-card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Positioned behind the overlay */
+}
+.scratch-container .scratch-card .scratch-card__content .scratch-card__code {
+  font-size: 32px;
+  color: black;
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */
