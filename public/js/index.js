@@ -10,7 +10,7 @@ canvas.width = overlay.offsetWidth;
 canvas.height = overlay.offsetHeight;
 
 // Fill the canvas with a gray overlay
-ctx.fillStyle = '#cccccc';
+ctx.fillStyle = '#D2F3F9';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Ensure the canvas allows transparency
@@ -54,7 +54,7 @@ function scratch(e) {
 
 function resetScratchCard() {
     ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = '#cccccc';
+    ctx.fillStyle = '#D2F3F9';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -62,7 +62,7 @@ function resetScratchCard() {
 if (document.getElementById('reset')) {
     document.getElementById('reset').addEventListener('click', () => {
         ctx.globalCompositeOperation = 'source-over';
-        ctx.fillStyle = '#cccccc';
+        ctx.fillStyle = '#D2F3F9';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     });
 }
