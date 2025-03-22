@@ -74,7 +74,7 @@ document.querySelectorAll('.btn').forEach(btn => {
         const dataId = event.target.getAttribute('data-id');
 
         // Call your API endpoint with the data-id as a query parameter
-        fetch(`http://localhost:3000/API/content?id=${dataId}`)
+        fetch(`/API/content?id=${dataId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
