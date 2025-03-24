@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config(); // Load environment variables from .env
 
 const app = express();
@@ -51,7 +52,18 @@ app.get('/API/content', (req, res) => {
     const id = req.query.id;
     if (id && contentMapping[id] && Array.isArray(contentMapping[id]) && contentMapping[id].length > 0) {
         const randomIndex = Math.floor(Math.random() * contentMapping[id].length);
-        res.json({ content: contentMapping[id][randomIndex] });
+
+        // Check if an image exists for the content in the public/img folder
+        const imgType = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
+
+        for (const type of imgType) {
+            if (fs.existsSync(`public/img/${contentMapping[id][randomIndex]}.${type}`)) {
+                const imageFileName = `${contentMapping[id][randomIndex]}.${type}`;
+                return res.json({ content: contentMapping[id][randomIndex], image: imageFileName });
+            }
+        }
+
+        return res.json({ content: contentMapping[id][randomIndex] });
     } else {
         res.status(404).json({ error: 'Content not found' });
     }

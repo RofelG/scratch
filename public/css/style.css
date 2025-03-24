@@ -101,6 +101,8 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%; /* Makes the element a circle */
+  background-color: white;
   z-index: 1; /* Positioned behind the overlay */
   text-transform: uppercase;
 }
@@ -108,4 +110,17 @@ main {
   font-size: 32px;
   color: black;
   text-align: center;
+}
+.scratch-container .scratch-card .scratch-card__content .scratch-card__img {
+  text-align: center;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+}
+.scratch-container .scratch-card .scratch-card__content .scratch-card__img img {
+  width: calc(100% - 8rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }/*# sourceMappingURL=style.css.map */

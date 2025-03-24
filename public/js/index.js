@@ -83,7 +83,19 @@ document.querySelectorAll('.btn').forEach(btn => {
             })
             .then(data => {
                 // Assume the API returns JSON in the format { content: "New content here" }
-                document.querySelector('.scratch-card__code').innerText = data.content;
+                document.querySelector('.scratch-card__code').innerHTML = '';
+                document.querySelector('.scratch-card__img').innerHTML = '';
+
+                if (data.image) {
+                    // If an image is returned, create an image element and append it to the overlay
+                    const img = document.createElement('img');
+                    img.src = `/img/${data.image}`;
+                    img.alt = `${data.content}`;
+                    document.querySelector('.scratch-card__img').appendChild(img);
+                } else {
+                    document.querySelector('.scratch-card__code').innerText = data.content;
+                }
+
                 
                 // Optionally, reset the scratch card overlay so users can scratch to reveal the new content
                 resetScratchCard();
