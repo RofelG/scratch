@@ -1,4 +1,4 @@
 .env
 public/img/*
-
+public/favicon/*
 node_modules/
