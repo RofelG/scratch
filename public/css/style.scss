@@ -12,6 +12,12 @@ html, body {
     font-style: normal;
 }
 
+body {
+    @media screen and (max-width: 768px) {
+        overflow: auto;
+    }
+}
+
 .button-container {
     width: 100%;
     display: flex;
@@ -51,23 +57,66 @@ html, body {
     }
 }
 
+#spinner-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #E8B7E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+  .spinner {
+    width: 100px;
+    height: 100px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}  
+
 main {
     height: 100%;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        height: unset;
+    }
 }
 
 .scratch-container {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 300px;
-    height: 300px;
-    left: 50%;
-    top: 25%;
-    transform: translate(-50%, -50%);
+    margin: 3rem;
 
-    @media screen and (min-width: 768px) {
-        top: 50%;
+    &#scratchTemplate {
+        display: none;
     }
 
     .scratch-card__title {
@@ -83,8 +132,8 @@ main {
 
     .scratch-card {
         position: relative;
-        width: 100%;
-        height: 100%;
+        width: 300px;
+        height: 300px;
         border-radius: 50%; /* Makes the element a circle */
         overflow: hidden;
 
@@ -103,6 +152,7 @@ main {
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             border-radius: 50%; /* Makes the element a circle */
@@ -110,25 +160,22 @@ main {
             z-index: 1; /* Positioned behind the overlay */
             text-transform: uppercase;
             .scratch-card__code {
-                font-size: 32px;
+                font-size: 22px;
                 color: black;
                 text-align: center;
-                
+                padding: 0rem 2rem;
             }
             .scratch-card__img {
                 text-align: center;
-                width: inherit;
-                height: inherit;
-                position: absolute;
                 img {
                     width: calc(100% - 8rem);
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
                 }
             }
         }
+    }
+
+    .scratch-card__category {
+        margin-top: 0.5rem;
     }
 }
 

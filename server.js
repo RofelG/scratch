@@ -50,7 +50,34 @@ app.get('/', (req, res) => {
 // API endpoint to return a random content item based on the id query parameter
 app.get('/API/content', (req, res) => {
     const id = req.query.id;
-    if (id && contentMapping[id] && Array.isArray(contentMapping[id]) && contentMapping[id].length > 0) {
+
+    if (id === 'all') {
+        const allCategories = Object.keys(contentMapping);
+        const selectedContent = [];
+
+        allCategories.forEach(category => {
+            if (Array.isArray(contentMapping[category]) && contentMapping[category].length > 0) {
+                const randomIndex = Math.floor(Math.random() * contentMapping[category].length);
+                selectedContent.push(contentMapping[category][randomIndex]);
+            }
+        });
+
+        if (selectedContent.length > 0) {
+            const response = selectedContent.map(content => {
+                const imgType = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
+                for (const type of imgType) {
+                    if (fs.existsSync(`public/img/${content}.${type}`)) {
+                        return { content, image: `${content}.${type}`, category: allCategories.find(category => contentMapping[category].includes(content))};
+                    }
+                }
+                return { content, category: allCategories.find(category => contentMapping[category].includes(content))};
+            });
+
+            return res.json(response);
+        } else {
+            return res.status(404).json({ error: 'No content available' });
+        }
+    } else if (id && contentMapping[id] && Array.isArray(contentMapping[id]) && contentMapping[id].length > 0) {
         const randomIndex = Math.floor(Math.random() * contentMapping[id].length);
 
         // Check if an image exists for the content in the public/img folder
@@ -59,11 +86,11 @@ app.get('/API/content', (req, res) => {
         for (const type of imgType) {
             if (fs.existsSync(`public/img/${contentMapping[id][randomIndex]}.${type}`)) {
                 const imageFileName = `${contentMapping[id][randomIndex]}.${type}`;
-                return res.json({ content: contentMapping[id][randomIndex], image: imageFileName });
+                return res.json({ content: contentMapping[id][randomIndex], image: imageFileName, category: id });
             }
         }
 
-        return res.json({ content: contentMapping[id][randomIndex] });
+        return res.json({ content: contentMapping[id][randomIndex], category: id });
     } else {
         res.status(404).json({ error: 'Content not found' });
     }
